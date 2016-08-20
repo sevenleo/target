@@ -9,6 +9,7 @@ public class variables : MonoBehaviour {
     public static string debug2;
     public Text DebugText;
     public Text DebugText2;
+    public static bool movelock;
     public static float minimaldistance = 20;
 
 
