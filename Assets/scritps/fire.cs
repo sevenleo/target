@@ -19,6 +19,8 @@ public class fire : MonoBehaviour {
     Camera thisCamera;
     Vector3 lastPos = Vector3.one * float.MaxValue;
 
+    Vector3 one = new Vector3(1, 1, 0);
+
     // Use this for initialization
     void Start () {
         z = transform.position.z;
@@ -49,19 +51,20 @@ public class fire : MonoBehaviour {
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, direction);
 
-            if(Input.GetMouseButtonDown(1)){
+            if(Input.GetMouseButtonDown(0)){
                 GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 GetComponent<Rigidbody2D>().angularVelocity = 0;
 
             }
 
-            if (Input.GetMouseButtonUp(1))
+            if (Input.GetMouseButtonUp(0) && Vector3.Distance(mouseposition, transform.position) >= variables.minimaldistance)
             {
                 bullet = Instantiate<GameObject>(bullet_prefab);
                 bullet.transform.position = transform.position;
                 scale = mouseposition - transform.position;
                 float speed = scale.magnitude * 0.3f; //maxspeed
                 bullet.GetComponent<Rigidbody2D>().AddForce(direction * speed, ForceMode2D.Impulse);
+                bullet.transform.SetParent (gameObject.transform);
             }
         }
         else
@@ -71,4 +74,16 @@ public class fire : MonoBehaviour {
 
         
     }
+
+
+
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+
+        
+        if (coll.gameObject.transform.parent != gameObject.transform)
+            coll.gameObject.transform.parent.transform.localScale = coll.gameObject.transform.parent.transform.localScale + one; 
+
+    }
+
 }

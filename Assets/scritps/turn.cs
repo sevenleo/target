@@ -11,7 +11,7 @@ public class turn : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        nextturn = Time.time+5f;
+        nextturn = Time.time+5000f;
         if (variables.turno)
         {
             TurnText.text = "Turn P1";
@@ -29,7 +29,7 @@ public class turn : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        TempoText.text = (nextturn - Time.time).ToString("F1"); ;
+        TempoText.text = (nextturn - Time.time).ToString("F1"); 
 
         if (Time.time>nextturn)        {
             nextturn=Time.time+5f;
